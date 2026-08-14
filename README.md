@@ -1,6 +1,6 @@
 # Decision Provenance Agent
 
-**Not just "what happened" — "why we changed our minds," as a first-class, queryable object.**
+**Not just "what happened" - "why we changed our minds," as a first-class, queryable object.**
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com)
@@ -20,7 +20,7 @@ But they all fail at:
 > *"Why did we move from A to B?"*
 > *"What did we used to think, and what changed our minds?"*
 
-Because the **reasoning that connected two states was never captured** — only the states themselves were stored, and each new fact silently overwrites or sits beside the last.
+Because the **reasoning that connected two states was never captured** - only the states themselves were stored, and each new fact silently overwrites or sits beside the last.
 
 ## The Solution
 
@@ -111,20 +111,20 @@ Raw Text → [Extract] → [Similarity Match] → [Diff & Classify] → [Validat
 
 ### Pipeline Stages
 
-1. **Extract** — Gemini 2.5 Flash extracts structured decision data (topic, claim, reasoning, evidence, confidence)
-2. **Similarity Match** — ChromaDB vector search finds existing decisions on the same topic
-3. **Diff & Classify** — If a match exists, Gemini classifies whether the decision *actually* changed and categorizes the trigger
-4. **Validate** — Enforces trust rules:
+1. **Extract** - Gemini 2.5 Flash extracts structured decision data (topic, claim, reasoning, evidence, confidence)
+2. **Similarity Match** - ChromaDB vector search finds existing decisions on the same topic
+3. **Diff & Classify** - If a match exists, Gemini classifies whether the decision *actually* changed and categorizes the trigger
+4. **Validate** - Enforces trust rules:
    - No claim without evidence
    - No revision without a stated reason
-5. **Store** — Writes to SQLite (chain) + ChromaDB (vectors). Old records are never deleted.
+5. **Store** - Writes to SQLite (chain) + ChromaDB (vectors). Old records are never deleted.
 
 ### Change Triggers
 
 Every revision must classify WHY it happened:
-- `new evidence` — New information changed the conclusion
-- `correction` — Previous conclusion was wrong
-- `constraint change` — External constraints changed (budget, timeline, requirements)
+- `new evidence` - New information changed the conclusion
+- `correction` - Previous conclusion was wrong
+- `constraint change` - External constraints changed (budget, timeline, requirements)
 
 ---
 
@@ -143,7 +143,7 @@ Every revision must classify WHY it happened:
 
 ## What Makes This Different
 
-This is **memory infrastructure** — a layer other agents could plug into, not a task-executor.
+This is **memory infrastructure** - a layer other agents could plug into, not a task-executor.
 
 - Not another validator-on-top-of-extraction
 - Not another RAG pipeline

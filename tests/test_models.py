@@ -1,6 +1,6 @@
 """
 Tests for DecisionRecord schema and validators.
-These are the trust boundary — if these fail, the agent can't be trusted.
+These are the trust boundary - if these fail, the agent can't be trusted.
 """
 
 import pytest

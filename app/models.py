@@ -1,7 +1,7 @@
 """
 Core data models for Decision Provenance Agent.
 
-Every stored item is a DecisionRecord with lineage — not a flat fact.
+Every stored item is a DecisionRecord with lineage not a flat fact.
 Records form a linked chain per topic, never overwritten.
 """
 
@@ -48,7 +48,7 @@ class DecisionRecord(BaseModel):
     evidence: list[str] = Field(
         ...,
         min_length=1,
-        description="Supporting sources/inputs — no claim gets stored without evidence"
+        description="Supporting sources/inputs - no claim gets stored without evidence"
     )
     confidence: float = Field(
         ...,
@@ -65,7 +65,7 @@ class DecisionRecord(BaseModel):
     )
     change_trigger: Optional[ChangeTrigger] = Field(
         default=None,
-        description="Why it changed — required when supersedes is set"
+        description="Why it changed - required when supersedes is set"
     )
 
     @model_validator(mode="after")

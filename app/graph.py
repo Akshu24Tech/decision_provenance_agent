@@ -83,7 +83,7 @@ async def match_node(state: PipelineState) -> PipelineState:
     return {
         **state,
         "matched_record": None,
-        "message": f"No existing record found for '{candidate['topic_key']}' — will store as new",
+        "message": f"No existing record found for '{candidate['topic_key']}' - will store as new",
     }
 
 
@@ -160,7 +160,7 @@ async def store_node(state: PipelineState) -> PipelineState:
         return {
             **state,
             "status": "deduped",
-            "message": f"Same decision restated — not stored. {diff_result.get('diff_summary', '')}",
+            "message": f"Same decision restated - not stored. {diff_result.get('diff_summary', '')}",
         }
 
     # Case 3: Match found and decision genuinely changed → store revision
@@ -190,7 +190,7 @@ async def store_node(state: PipelineState) -> PipelineState:
             "final_record": record.model_dump(mode="json"),
             "status": "stored_revision",
             "message": (
-                f"Stored revision on '{record.topic_key}' — "
+                f"Stored revision on '{record.topic_key}' - "
                 f"supersedes {matched['id'][:8]}... "
                 f"(trigger: {change_trigger.value})"
             ),

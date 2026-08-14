@@ -20,7 +20,7 @@ from app.models import DecisionRecord, ChangeTrigger
 
 
 # ──────────────────────────────────────────────
-#  SQLite — Record chain storage
+#  SQLite - Record chain storage
 # ──────────────────────────────────────────────
 
 _CREATE_TABLE = """
@@ -181,7 +181,7 @@ def list_topics() -> list[str]:
 
 
 # ──────────────────────────────────────────────
-#  ChromaDB — Vector similarity search
+#  ChromaDB - Vector similarity search
 # ──────────────────────────────────────────────
 
 _chroma_client: Optional[chromadb.PersistentClient] = None

@@ -2,10 +2,10 @@
 FastAPI entrypoint for Decision Provenance Agent.
 
 Endpoints:
-  POST /ingest        — Accept raw text, run through pipeline
-  GET  /query/{topic}  — Current state or provenance chain
-  GET  /topics         — List all tracked topics
-  GET  /health         — Health check
+  POST /ingest        - Accept raw text, run through pipeline
+  GET  /query/{topic}  - Current state or provenance chain
+  GET  /topics         - List all tracked topics
+  GET  /health         - Health check
 """
 
 from contextlib import asynccontextmanager
@@ -41,7 +41,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Decision Provenance Agent",
     description=(
-        "Not just 'what happened' — 'why we changed our minds,' "
+        "Not just 'what happened' - 'why we changed our minds,' "
         "as a first-class, queryable object. "
         "Stores decisions with full lineage: claim, reasoning, evidence, "
         "and every revision with its trigger."
@@ -115,7 +115,7 @@ async def query_topic(
     Two modes:
     - **current**: Returns the latest, non-superseded record (what's true NOW)
     - **provenance**: Returns the full chain of revisions with change triggers
-      (WHY it changed — the thing flat memory can't answer)
+      (WHY it changed - the thing flat memory can't answer)
     """
     if mode == "current":
         record = storage.get_current_record(topic_key)

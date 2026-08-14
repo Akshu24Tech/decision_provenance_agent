@@ -18,7 +18,7 @@ from app import storage
 # Skip LLM tests if no API key
 requires_api_key = pytest.mark.skipif(
     not os.getenv("GOOGLE_API_KEY"),
-    reason="GOOGLE_API_KEY not set — skipping LLM integration tests"
+    reason="GOOGLE_API_KEY not set - skipping LLM integration tests"
 )
 
 
