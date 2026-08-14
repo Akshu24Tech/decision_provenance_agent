@@ -46,7 +46,7 @@ class TestDecisionRecordValidation:
                 topic_key="database_choice",
                 claim="We switched to MySQL.",
                 reasoning="Someone said so.",
-                evidence=["Slack message"],
+                evidence=["Meeting transcript"],
                 confidence=0.5,
                 supersedes="old-record-id-123",
                 change_trigger=None,  # <-- this should fail
