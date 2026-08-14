@@ -37,6 +37,10 @@ chroma_data/
 htmlcov/
 .coverage
 
-# OS
+# OS & Media
 .DS_Store
 Thumbs.db
+*.jpg
+*.jpeg
+*.png
+
