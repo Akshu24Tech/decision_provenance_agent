@@ -150,7 +150,3 @@ This is **memory infrastructure** - a layer other agents could plug into, not a 
 - **A trust layer underneath agent systems** that captures the one thing every other memory store loses: *why things changed*
 
 ---
-
-## License
-
-MIT
