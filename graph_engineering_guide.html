@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Graph Engineering: Durable Memory & Decision Provenance for AI Agents</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    line-height: 1.5;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* Header Banner */
+  .cover-header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    color: #ffffff;
+    padding: 32px 28px;
+    border-radius: 14px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+  }
+
+  .tag {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.25);
+    border: 1px solid rgba(165, 180, 252, 0.4);
+    color: #c7d2fe;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .cover-title {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .cover-subtitle {
+    font-size: 14px;
+    color: #cbd5e1;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .meta-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  /* Section Styling */
+  h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 22px 0 12px 0;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-num {
+    background: #4f46e5;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  p {
+    margin: 0 0 12px 0;
+    color: #334155;
+  }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Cards */
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .card-highlight {
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+  }
+
+  .card-primary {
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: #475569;
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  /* Comparison Box */
+  .compare-box {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 16px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  th {
+    background: #0f172a;
+    color: #ffffff;
+    text-align: left;
+    padding: 9px 12px;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  /* Code Block */
+  pre {
+    background: #090d16;
+    color: #e2e8f0;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    line-height: 1.45;
+    margin: 10px 0 14px 0;
+    overflow: hidden;
+    border: 1px solid #1e293b;
+  }
+
+  .highlight-text {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 11px;
+  }
+
+  .badge-check {
+    display: inline-flex;
+    align-items: center;
+    background: #dcfce7;
+    color: #166534;
+    font-weight: 600;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .quote-box {
+    background: #f8fafc;
+    border-left: 4px solid #4f46e5;
+    padding: 10px 14px;
+    margin: 12px 0 16px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #334155;
+    font-size: 12.5px;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+  }
+</style>
+</head>
+<body>
+
+  <!-- PAGE 1: Core Paradigm & Dual-Graph -->
+  <div class="cover-header">
+    <div class="tag">System Design Architecture</div>
+    <div class="cover-title">Graph Engineering & Decision Provenance</div>
+    <div class="cover-subtitle">Moving AI Agents Beyond Ephemeral Chat Transcripts to Durable, Auditable State</div>
+    <div class="meta-bar">
+      <span>Architectural Blueprint: Decision Provenance Agent</span>
+      <span>Stack: LangGraph • SQLite • ChromaDB • FastAPI</span>
+    </div>
+  </div>
+
+  <h2><span class="section-num">1</span> The Paradigm Shift: Evolution of AI Workflows</h2>
+  
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">1. Vibe Coding</div>
+      <div class="card-desc">Human prompts with natural language, model writes single-shot code. Context is lost immediately after execution.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">2. Agentic Engineering</div>
+      <div class="card-desc">Human orchestrates loops, tools, and evaluation gates. State lives ephemerally in running scripts or transcripts.</div>
+    </div>
+    <div class="card card-primary">
+      <div class="card-title" style="color: #4338ca;">3. Graph Engineering</div>
+      <div class="card-desc">Agents read and write to <strong>typed, queryable graphs</strong> of lineage and evidence. Cross-session memory survives indefinitely.</div>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <strong>The Core Insight:</strong> The bottleneck in production AI systems is rarely model intelligence. It is <strong>where memory, lineage, and evaluation live</strong>. A chat transcript is not a database.
+  </div>
+
+  <h2><span class="section-num">2</span> The Dual-Graph Foundation: Lineage + Grounding</h2>
+  <p>To eliminate hallucination and state amnesia, production systems connect two distinct graph planes:</p>
+
+  <div class="compare-box">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Layer</th>
+          <th style="width: 35%;">Commit DAG (Lineage)</th>
+          <th style="width: 40%;">Knowledge Graph (Grounding)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Core Question</strong></td>
+          <td><em>"What changed, when, and by which run?"</em></td>
+          <td><em>"What exists, and what evidence supports it?"</em></td>
+        </tr>
+        <tr>
+          <td><strong>Node / Edge Meaning</strong></td>
+          <td>Nodes = Commits/Runs<br>Edges = Parent mutations</td>
+          <td>Nodes = Entities/Claims<br>Edges = Typed predicates (SUPPORTS, CITES)</td>
+        </tr>
+        <tr>
+          <td><strong>Implementation</strong></td>
+          <td><strong>SQLite State Layer</strong> (Immutable event logs)</td>
+          <td><strong>ChromaDB / Vector Graph</strong> (Semantic evidence chains)</td>
+        </tr>
+        <tr>
+          <td><strong>Primary Action</strong></td>
+          <td>Branch traversal & rollback</td>
+          <td>Evidence chain verification & conflict detection</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- PAGE 2: Invariants & Architecture Blueprint -->
+  <h2><span class="section-num">3</span> Four Invariants for Every Graph Write</h2>
+  <p>Our agent enforces four non-negotiable rules on every state modification:</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">1. Explicit Provenance</div>
+      <div class="card-desc">Every claim must cite a verified source edge or be explicitly tagged as an inference node. No ungrounded assertions.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">2. Versioned Artifact Contracts</div>
+      <div class="card-desc">Every output is linked to its exact authoring agent ID, prompt hash, tool run ID, and semantic version.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">3. Rubric-Bound Evaluations</div>
+      <div class="card-desc">Evaluators never output vague feedback ("looks good"). Every review identifies a deterministic rubric and missing edges.</div>
+    </div>
+    <div class="card card-highlight">
+      <div class="card-title" style="color: #7e22ce;">4. Addressable Superseded State</div>
+      <div class="card-desc">Old decisions are <strong>never deleted</strong>. They are marked superseded, remaining queryable so you can audit <em>why decisions changed over time</em>.</div>
+    </div>
+  </div>
+
+  <h2><span class="section-num">4</span> Practical Architecture: Decision Provenance Agent</h2>
+
+  <div class="card" style="background: #ffffff; border: 1px solid #cbd5e1; margin-bottom: 16px;">
+    <div style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">The 5-Plane Production Architecture</div>
+    <div class="grid-3" style="margin-bottom: 0;">
+      <div style="background:#f1f5f9; padding: 8px 10px; border-radius: 6px; font-size: 11.5px;">
+        <strong>Control Plane</strong><br>LangGraph workflow planner, budget & recursion guardrails.
+      </div>
+      <div style="background:#f1f5f9; padding: 8px 10px; border-radius: 6px; font-size: 11.5px;">
+        <strong>Lineage Plane</strong><br>SQLite commit history, state checkpoints, rollback pointers.
+      </div>
+      <div style="background:#f1f5f9; padding: 8px 10px; border-radius: 6px; font-size: 11.5px;">
+        <strong>Evidence Plane</strong><br>ChromaDB vector entities + grounded relation subgraphs.
+      </div>
+    </div>
+  </div>
+
+  <p><strong>Evaluator Grounding Contract (Structured Feedback):</strong></p>
+<pre><code>{
+  "decision": "revise",
+  "target_claim": "Vendor X caused deployment latency spike in cluster A",
+  "status": "UNSUPPORTED_PATH",
+  "reason": "Missing relation edge between (Metric_Log_402) and (Vendor_X_API)",
+  "required_evidence": ["Network trace logs", "Vendor SLA incident ticket"]
+}</code></pre>
+
+  <h2><span class="section-num">5</span> Production Audit Checklist</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">System Attribute</th>
+        <th style="width: 45%;">Design Question</th>
+        <th style="width: 30%;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Reversibility</strong></td>
+        <td>Can candidate decisions be rolled back without corrupting history?</td>
+        <td><span class="badge-check">Enforced via SQLite DAG</span></td>
+      </tr>
+      <tr>
+        <td><strong>Entity Resolution</strong></td>
+        <td>Are entity merges reversible to prevent catastrophic contamination?</td>
+        <td><span class="badge-check">Additive Aliases Kept</span></td>
+      </tr>
+      <tr>
+        <td><strong>Grounding Layer</strong></td>
+        <td>Does generation pull from bounded subgraphs instead of full transcript dumps?</td>
+        <td><span class="badge-check">1-2 Hop Subgraph Bounds</span></td>
+      </tr>
+      <tr>
+        <td><strong>Decision Audit</strong></td>
+        <td>Can a human query why decision A became decision B 10 days later?</td>
+        <td><span class="badge-check">Superseded Addressability</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer-note">
+    <em>"The phrase the agent forgets, the graph does not."</em> • Decision Provenance Agent Architecture Guide
+  </div>
+
+</body>
+</html>
