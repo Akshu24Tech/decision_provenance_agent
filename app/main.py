@@ -151,3 +151,22 @@ async def list_topics():
     """List all tracked decision topics."""
     topics = storage.list_topics()
     return TopicListResponse(topics=topics, total=len(topics))
+
+
+import os
+from fastapi.responses import FileResponse, RedirectResponse
+
+guide_path = os.path.join(os.path.dirname(__file__), "..", "graph_engineering_guide.html")
+
+@app.get("/")
+def root():
+    if os.path.exists(guide_path):
+        return FileResponse(guide_path)
+    return RedirectResponse(url="/docs")
+
+@app.get("/guide")
+def view_guide():
+    if os.path.exists(guide_path):
+        return FileResponse(guide_path)
+    raise HTTPException(status_code=404, detail="Guide not found")
+

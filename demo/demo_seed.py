@@ -19,7 +19,7 @@ import time
 import sys
 import json
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "http://127.0.0.1:8001"
 
 
 def pretty_print(title, data):
