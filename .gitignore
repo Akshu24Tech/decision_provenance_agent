@@ -19,12 +19,14 @@ ENV/
 
 # SQLite database
 *.db
+*.db.bak
 *.db-journal
 *.db-wal
 *.db-shm
 
 # ChromaDB persistence
 chroma_data/
+chroma_data.bak/
 
 # IDE
 .idea/
